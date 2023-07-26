@@ -1,0 +1,83 @@
+body {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: aqua;
+    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+}
+
+.main-container {
+    background-color: gray;
+    padding: .8rem;
+    margin-bottom: 2rem;
+    margin-top: 4rem;
+    border-radius: 0.6rem;
+    border: .2rem solid;
+    box-shadow: .6rem .6rem .6rem rgb(4, 3, 32);
+}
+
+.btn-container {
+    display: grid;
+    grid-template-columns: repeat(4, 3rem);
+    grid-template-rows: repeat(5, 3rem);
+}
+
+.btn-container > button {
+    margin: .28rem;
+    border: .1rem solid black;
+    border-radius: 2rem;
+    cursor: pointer;
+    background-color: rgb(204, 223, 240)
+}
+
+.btn-container > button:hover {
+    background-color: azure;
+}
+
+button.equals {
+    background-color: rgb(103, 212, 103);
+}
+
+button.all-clear,
+button.clear {
+    background-color: rgb(235, 87, 87);
+}
+
+button.operator {
+    background-color: rgb(127, 255, 212);
+}
+
+button#reverse {
+    background-color: rgb(204, 223, 240);
+}
+
+.display {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    padding: .75rem;
+    margin-bottom: .4rem;
+    background-color: hsla(180, 69%, 90%, 0.8);
+    border-radius: .6rem;
+    border: .2rem solid;
+
+}
+
+#footer {
+    margin-top: 4rem;
+}
+
+#footer p {
+    font-size: .8rem;
+}
+
+#footer a {
+    font-size: 1.2rem;
+}
+
+
