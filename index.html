@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Freehand&family=Pacifico&family=Permanent+Marker&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;0,900;1,300;1,400;1,500;1,700;1,900&display=swap"
-        rel="stylesheet">
+        rel="stylesheet">    
     <link rel="stylesheet" href="style.css">
     <script src="calculator.js" defer></script>
     <script src="https://kit.fontawesome.com/4c536a6bd5.js" crossorigin="anonymous"></script>
@@ -16,30 +16,34 @@
 <body>
     <div class="main-container">
         <div class="display">
-            <div class="operation">20000 + 30000</div>
-            <div class="result">500000</div>
+            <div class="previousvalue">30000 + 20000 =</div>
+            <input type="text" class="currentvalue" value="0" readonly />
         </div>
         <div class="btn-container">
-            <button class="all-clear" type="button">AC</button>
-            <button class="clear" type="button">C</button>
-            <button class="operator" type="button">%</button>
-            <button class="operator" type="button">÷</button>
-            <button class="operand" type="button">7</button>
-            <button class="operand" type="button">8</button>
-            <button class="operand" type="button">9</button>
-            <button class="operator" type="button">×</button>
-            <button class="operand" type="button">4</button>
-            <button class="operand" type="button">5</button>
-            <button class="operand" type="button">6</button>
-            <button class="operator" type="button">-</button>
-            <button class="operand" type="button">1</button>
-            <button class="operand" type="button">2</button>
-            <button class="operand" type="button">3</button>
-            <button class="operator" type="button">+</button>
-            <button class="operator" id="reverse" type="button">+/-</button>
-            <button class="operand" type="button">0</button>
-            <button class="operand" type="button">.</button>
-            <button class="equals" type="button">=</button>
+            <button class="allClear">AC</button>
+            <button class="clear">C</button>
+            <button class="percent">%</button>
+            <button class="operator">÷</button>
+
+            <button class="number">7</button>
+            <button class="number">8</button>
+            <button class="number">9</button>
+            <button class="operator">×</button>
+
+            <button class="number">4</button>
+            <button class="number">5</button>
+            <button class="number">6</button>
+            <button class="operator">-</button>
+
+            <button class="number">1</button>
+            <button class="number">2</button>
+            <button class="number">3</button>
+            <button class="operator">+</button>
+
+            <button class="signChange" id="reverse">+/-</button>
+            <button class="number">0</button>
+            <button class="decimal">.</button>
+            <button class="equals">=</button>
         </div>      
     </div>
 
