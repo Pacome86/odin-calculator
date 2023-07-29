@@ -8,7 +8,7 @@ body {
     justify-content: center;
     align-items: center;
     background-color: aqua;
-    font-family: 'Roboto', 'Helvetica Neue', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 .main-container {
@@ -32,18 +32,27 @@ body {
     border: .1rem solid black;
     border-radius: 2rem;
     cursor: pointer;
-    background-color: rgb(204, 223, 240)
+    background-color: rgb(204, 223, 240);
+    place-content: center;
+    /* border: none; */
+    outline: none;
+    
 }
 
 .btn-container > button:hover {
     background-color: azure;
+    transform: scale(1.2);
 }
+
+/* .btn-container>button:active {
+    
+} */
 
 button.equals {
     background-color: rgb(103, 212, 103);
 }
 
-button.all-clear,
+button.allClear,
 button.clear {
     background-color: rgb(235, 87, 87);
 }
@@ -65,7 +74,30 @@ button#reverse {
     background-color: hsla(180, 69%, 90%, 0.8);
     border-radius: .6rem;
     border: .2rem solid;
+    word-wrap: break-word;
+    word-break: break-all;
 
+}
+
+.previousvalue {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: .7rem;
+}
+
+.currentvalue {
+    font-size: .8rem;
+    font-weight: bolder;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    text-align: right;
+}
+
+.previousvalue,
+.currentvalue {
+    min-height: 1.2rem;
 }
 
 #footer {
