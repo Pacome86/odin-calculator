@@ -34,7 +34,6 @@ body {
     cursor: pointer;
     background-color: rgb(204, 223, 240);
     place-content: center;
-    /* border: none; */
     outline: none;
     
 }
@@ -43,10 +42,6 @@ body {
     background-color: azure;
     transform: scale(1.2);
 }
-
-/* .btn-container>button:active {
-    
-} */
 
 button.equals {
     background-color: rgb(103, 212, 103);
