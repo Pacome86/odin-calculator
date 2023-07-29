@@ -9,9 +9,11 @@ const initCalc = () => {
     inputButtons.forEach(button => {
         button.addEventListener('click', (e) => {
             const newInput = e.target.textContent;
+            // To know that the current input is a new number
+            // not to be concatenated to the previous one.
             if (newNumberFlag) {
                 currentValueElem.value = newInput;
-                newNumberFlag = false;
+                newNumberFlag = false; // number concatenated;
             } else {
                 currentValueElem.value =
                     currentValueElem.value == 0
@@ -24,8 +26,98 @@ const initCalc = () => {
 
     const opButtons = document.querySelectorAll('.operator');
     opButtons.forEach(button => {
-        button.addEventListener('click', (e) => {})
-    })
+        button.addEventListener('click', (e) => {
+            
+            // When a new operation begins or equal sign showing
+            // Meaning we complete an equation and are ready to
+            // begin a new one or newNumberFlag = true;
+            if (newNumberFlag) {
+                previousValueElem.value = '';
+                itemArray = [];
+            }
+
+            const newOperator = e.target.textContent;
+            const currentVal = currentValueElem.value;
+            
+            // need number first
+            if (!itemArray.length && currentVal == 0) return;
+
+            // begin a new equation
+            if (!itemArray.length) {
+                itemArray.push(currentVal, newOperator);
+                previousValueElem.textContent =
+                    `${currentVal} 
+                     ${newOperator}`;
+              return newNumberFlag = true;
+            }
+
+            // complete equation
+            if (itemArray.length) {
+                itemArray.push(currentVal) // 3rd item in array
+
+                const equationObj = {
+                    num1: parseFloat(itemArray[0]),
+                    op: itemArray[1],
+                    num2: parseFloat(currentVal),
+                    
+                }
+
+                equationArray.push(equationObj);
+                const equationString =
+                    `${equationObj['num1']} ${equationObj['op']} ${equationObj['num2']}`;
+                
+                
+                const newValue = calculate(equationString, currentValueElem);
+                
+
+                previousValueElem.textContent =
+                    `${newValue} ${newOperator}`;
+                
+                // Start new equation
+                itemArray = [newValue, newOperator]
+                newNumberFlag = true;
+                console.log(equationArray);
+            }
+        });
+    });
+
+    const equalsButton = document.querySelector('.equals');
+    equalsButton.addEventListener('click', () => {
+        const currentVal = currentValueElem.value;
+        let equationObj;
+
+        // Pressing equals key repeatedly
+        if (!itemArray.length && equationArray.length) {
+            const lastEquation = equationArray[equationArray.length - 1];
+            equationObj = {
+                num1: parseFloat(currentVal),
+                op: lastEquation.op,
+                num2: lastEquation.num2
+            }
+        } else if (!itemArray.length) {
+            return currentVal;
+        } else {
+            itemArray.push(currentVal);
+            equationObj = {
+                num1: parseFloat(itemArray[0]),
+                op: itemArray[1],
+                num2: parseFloat(currentVal)
+            }
+        }
+
+        equationArray.push(equationObj);
+
+        const equationString =
+            `${equationObj['num1']} ${equationObj['op']} ${equationObj['num2']}`;
+        
+        calculate(equationString, currentValueElem);
+
+        previousValueElem.textContent = `${equationString} =`;
+
+        newNumberFlag = true;
+        itemArray = [];
+        console.log(equationArray)
+    });
 
     const dotButton = document.querySelector('.decimal');
     dotButton.addEventListener('click', (e) => {
@@ -39,14 +131,14 @@ const initCalc = () => {
     });
 
     const allClearButton = document.querySelector('.allClear');
-    allClearButton.addEventListener('click', (e) => {
+    allClearButton.addEventListener('click', () => {
         currentValueElem.value = 0;
         previousValueElem.textContent = '';
         itemArray = [];
     });
 
     const clearButton = document.querySelector('.clear');
-    clearButton.addEventListener('click', (e) => {
+    clearButton.addEventListener('click', () => {
         currentValueElem.value = currentValueElem.value.slice(0, -1);
     });
 
@@ -61,254 +153,39 @@ const initCalc = () => {
     });
 }
 
-document.addEventListener('DOMContentLoaded', initCalc)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-// Basic math operations
-
-function add(a, b) {
-    return a + b;
-}
-
-function subtract(a, b) {
-    return a - b;
-}
-
-function multiply(a, b) {
-    return a * b;
-}
-
-function divide(a, b) {
-    return a / b;
-}
-
-function percent(a) {
-    return a / 100;
-}
-
-function reverse(a) {
-    return -(a);
-}
-
-
-// Variables for each part of an operation for example 3 + 5:
-let firstOperand;
-let secondOperand;
-let operator;
-// let operation;
-
-function operate(operator, firstOperand, secondOperand) {
-    if (operator === '+') {
-        return add(firstOperand, secondOperand);
-    } else if (operator === '-') {
-        return subtract(firstOperand, secondOperand);
-    } else if (operator === '×') {
-        return multiply(firstOperand, secondOperand);
-    } else if (operator === '÷') {
-        return divide(firstOperand, secondOperand);
-    } else if (operator === '%' && secondOperand === undefined) {
-        return percent(firstOperand);
-    } else if (operator === '+/-' && secondOperand === undefined) {
-        return reverse(firstOperand);
-    }
-}
-
-// Create the functions that populate the display when you click the number buttons. 
-// You should be storing the ‘display value’ in a variable 
-// somewhere for use in the next step.
-const operandButtons = Array.from(document.querySelectorAll('.operand'));
-const operatorButtons = Array.from(document.querySelectorAll('.operator'));
-const clearButtons = Array.from(document.querySelectorAll('.clear'));
-const decimalButton = document.querySelector('.decimal'); 
-const equalsButton = document.querySelector('.equals');
-const displayOperation = document.querySelector('.operation');
-const displayResult = document.querySelector('.result');
-
-// Display numbers and store in the operand variable
-
-let operand = operandButtons.map(button => {
-    button.addEventListener('click', (e) => {
-        const number = []
-        displayOperation.innerText += e.target.innerText;
-        number.push(displayOperation.innerText);
-        operand = number.slice(-1).toString();
-        return operand;
-        
-    });
-});
-
-// So the decimal (.) won't be displayed more than once
-
-decimalButton.addEventListener('click', (e) => {
-    if (displayOperation.innerText.includes('.')) {
-        return e.target.innerText === null;
-    } else {
-        return displayOperation.innerText += e.target.innerText;
-    }
-});
-
-// Buttons AC to clear everything and button C to clear the last number:
-clearButtons.map(button => {
-    button.addEventListener('click', (e) => {
-        switch (e.target.innerText) {
-            case 'AC':
-                displayOperation.innerText = '';
-                displayResult.innerText = '';
-                break;
-            case 'C':
-                if (displayOperation.innerText) {
-                    displayOperation.innerText = displayOperation.innerText.slice(0, -1);
-                }
-                break;
-        }
-    });
-});
-
-// Choose an operator
-operatorButtons.map(button => {
-    button.addEventListener('click', (e) => {
-        switch (e.target.innerText) {
-            case '+':
-                firstPart = operand;
-                console.log(operand);
-                displayOperation.innerText += e.target.innerText;
-
-        }
-    });
-});
-
-equalsButton.addEventListener('click', (e) => {
+document.addEventListener('DOMContentLoaded', initCalc);
+
+const calculate = (equationString, currentValueElem) => {
+    const regex = /(^[×÷=])|(\s)/g;
+    equationString.replace(regex, '');
+    const divByZero = /( \/ 0)/.test(equationString);
+    if (divByZero) return currentValueElem.value =
+        'Without comments...';
     
-    if (e.target.innerText) {
-        let string = displayOperation.innerText;
-        console.log(string);
-        let split = string.split('');
-        console.log(split);
-        displayResult.innerText += operate(operator, firstOperand, secondOperand);
+    return currentValueElem.value = Math.round((operate.expression(equationString)) * 100) / 100;
+       
+}
 
-    } else if (displayOperation.innerText !== '') {
-        console.log(displayOperation.innerText);
+function Calculator() {
+    this.methods = {
+        '+': (a, b) => (a + b),
+        '-': (a, b) => (a - b),
+        '×': (a, b) => (a * b),
+        '÷': (a, b) => (a / b),
+     };
+
+    this.expression = function (equationString) {
+        let split = equationString.split(' '),
+            a = +split[0],
+            op = split[1],
+            b = +split[2];
+        
+        if (!this.methods[op] || isNaN(a) || isNaN(b)) {
+            return NaN;
+        }
+        
+        return this.methods[op](a, b);
     }
-})
-*/
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// function Calculator() {
-//     this.methods = {
-//         '+': (a, b) => (a + b),
-//         '-': (a, b) => (a - b),
-//         '*': (a, b) => (a * b),
-//         '÷': (a, b) => (a / b),
-//         '%': a => (a / 100)
-//     };
-
-//     this.calculate = function (string) {
-//         let split = string.split(' '),
-//             a = +split[0],
-//             op = split[1],
-//             b = +split[2];
-//         return this.methods[op](a, b);
-//     }
-// }
-
-// const calc = new Calculator;
-
-// console.log(calc.calculate('3 + 7'));
-// console.log(calc.calculate('20%'));
-
-
-// const calculator = {
-//     'operands': {
-//         '+': (a, b) => (a + b),
-//         '-': (a, b) => (a - b),
-//         '*': (a, b) => (a * b),
-//         '/': (a, b) => (a / b),
-//     }
-// }
+const operate = new Calculator;
