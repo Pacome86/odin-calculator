@@ -12,10 +12,12 @@ body {
 }
 
 .main-container {
+    
     background-color: gray;
-    padding: .8rem;
-    margin-bottom: 2rem;
-    margin-top: 4rem;
+    /* padding: .8rem; */
+    padding: 1.6rem;
+    /* margin-bottom: .6rem; */
+    /* margin-top: 4rem; */
     border-radius: 0.6rem;
     border: .2rem solid;
     box-shadow: .6rem .6rem .6rem rgb(4, 3, 32);
@@ -23,12 +25,14 @@ body {
 
 .btn-container {
     display: grid;
-    grid-template-columns: repeat(4, 3rem);
-    grid-template-rows: repeat(5, 3rem);
+    /* grid-template-columns: repeat(4, 3rem); */
+    grid-template-columns: repeat(4, 4rem);
+    /* grid-template-rows: repeat(5, 3rem); */
+    grid-template-rows: repeat(5, 4rem);
 }
 
 .btn-container > button {
-    margin: .28rem;
+    margin: .30rem;
     border: .1rem solid black;
     border-radius: 2rem;
     cursor: pointer;
@@ -82,7 +86,7 @@ button#reverse {
 }
 
 .currentvalue {
-    font-size: .8rem;
+    font-size: 1.2rem;
     font-weight: bolder;
     background-color: transparent;
     border: none;
@@ -96,7 +100,8 @@ button#reverse {
 }
 
 #footer {
-    margin-top: 4rem;
+    /* margin-top: 4rem; */
+    margin-top: 1rem;
 }
 
 #footer p {
