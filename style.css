@@ -39,6 +39,7 @@ body {
     background-color: rgb(204, 223, 240);
     place-content: center;
     outline: none;
+    font-size: 1rem;
     
 }
 
